@@ -1,0 +1,20 @@
+                                                            /*CONSULTAS*/
+                                                            
+/*Mostrar todos los alumnos que llevan el curso X*/
+select Nombre_Alumno, Nombre_Curso from ejercicio3.alumno, ejercicio3.curso, ejercicio3.curso_has_alumno
+where alumno.DNI=curso_has_alumno.alumno_DNI and Curso.idCurso=Curso_has_Alumno.Curso_idCurso and Nombre_Curso = 'X';
+
+/*Mostrar los datos de los cursos que han sido llevados por más de 1 profesor*/
+select count(idProfesor), Nombre_Curso, Descripción_Curso, Precio from ejercicio3.profesor, ejercicio3.curso,
+ejercicio3.curso_has_profesor where profesor.idProfesor=curso_has_profesor.Profesor_idProfesor 
+and curso.idCurso=curso_has_profesor.Curso_idCurso group by idCurso having count(idProfesor)>1;
+
+/*Mostrar los datos de los alumnos que han llevado más de 1 curso*/
+select count(idCurso), DNI, Nombre_Alumno, Celular, Email from ejercicio3.curso, ejercicio3.alumno,
+ejercicio3.curso_has_alumno where alumno.DNI=curso_has_alumno.Alumno_DNI 
+and curso.idCurso=curso_has_alumno.Curso_idCurso group by DNI having count(idCurso)>1;
+
+/*Mostrar los datos de los alumnos que han llevado el curso X y el curso Y*/
+select Nombre_Curso, Nombre_Alumno, DNI, Celular, Email from ejercicio3.curso, ejercicio3.alumno,
+ejercicio3.curso_has_alumno where alumno.DNI=curso_has_alumno.Alumno_DNI 
+and curso.idCurso=curso_has_alumno.Curso_idCurso and Nombre_Curso = 'X' and Nombre_Curso='Y';
